@@ -1,0 +1,16 @@
+# Render Blueprint — auto-deploys this static site from GitHub on each push to main.
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: bravenewworld
+    runtime: static
+    repo: https://github.com/areveur51/BraveNewWorld
+    branch: main
+    autoDeployTrigger: commit
+    buildCommand: "true"
+    staticPublishPath: public
+    domains:
+      - areveur.com
+    envVars:
+      - key: SKIP_INSTALL_DEPS
+        value: "true"
