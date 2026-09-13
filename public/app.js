@@ -16,8 +16,6 @@ const MANIFESTO = [
   "Nothing!",
   "",
   "THE BEST IS YET TO COME!",
-  "",
-  "- Q Clearance Patriot",
 ].join("\n");
 window.MANIFESTO = MANIFESTO;
 const LINES = MANIFESTO.split("\n");
