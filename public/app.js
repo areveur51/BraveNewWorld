@@ -21,18 +21,16 @@ window.MANIFESTO = MANIFESTO;
 const LINES = MANIFESTO.split("\n");
 window.LINES = LINES;
 
-/* Speaking cadence: snappy read-along; scaled to finish within ~78% of the ~66s clip. */
-const LETTER_MS = 48;
-const SPACE_MS = 62;
-const COMMA_MS = 140;
-const COLON_MS = 170;
-const SENTENCE_MS = 260;
-const LINE_HOLD_MS = 380;
-const BLANK_HOLD_MS = 480;
-const START_HOLD_MS = 260;
-const END_HOLD_MS = 1100;
-const CLIP_FALLBACK_DURATION = 66.02;
-const TYPE_END_FRAC = 0.78; // finish typing+end-hold before fade/end of clip
+/* Speaking cadence: letter-by-letter at a read-along pace, with breath at punctuation. */
+const LETTER_MS = 70;
+const SPACE_MS = 95;
+const COMMA_MS = 240;
+const COLON_MS = 300;
+const SENTENCE_MS = 520;
+const LINE_HOLD_MS = 780;
+const BLANK_HOLD_MS = 980;
+const START_HOLD_MS = 420;
+const END_HOLD_MS = 2400;
 
 function measureLineWidthDom(line, fontSizePx) {
   const probe = measureLineWidthDom._probe || (measureLineWidthDom._probe = (() => {
@@ -206,32 +204,6 @@ function cycleScene() {
   scenes[sceneIdx].classList.add("is-active");
 }
 
-function estimateCadenceMs() {
-  let total = START_HOLD_MS + END_HOLD_MS;
-  for (let i = 0; i < MANIFESTO.length; i++) {
-    const ch = MANIFESTO[i];
-    if (ch === "\n") {
-      const next = MANIFESTO.slice(i + 1).split("\n")[0] || "";
-      total += next.trim() ? LINE_HOLD_MS : BLANK_HOLD_MS;
-    } else {
-      total += delayForChar(ch);
-    }
-  }
-  return total;
-}
-
-let paceScale = 1;
-function refreshPaceScale(durationSec) {
-  const dur = (durationSec && isFinite(durationSec) && durationSec > 1)
-    ? durationSec
-    : CLIP_FALLBACK_DURATION;
-  const target = Math.max(8000, dur * TYPE_END_FRAC * 1000);
-  const natural = estimateCadenceMs();
-  // Only speed up if natural would overrun the window; keep snappy (never slow below 1)
-  paceScale = natural > target ? (target / natural) : 1;
-  return paceScale;
-}
-
 function delayForChar(ch) {
   if (ch === "\n") return 0;
   if (".!?".includes(ch)) return SENTENCE_MS;
@@ -342,7 +314,7 @@ function cadenceFrame(now) {
     if (!endHoldStarted) {
       endHoldStarted = true;
       if (cursor) cursor.classList.add("done");
-      nextAt = now + END_HOLD_MS * paceScale;
+      nextAt = now + END_HOLD_MS;
       rafId = requestAnimationFrame(cadenceFrame);
       return;
     }
@@ -355,7 +327,7 @@ function cadenceFrame(now) {
   const ch = MANIFESTO[shown];
   shown += 1;
   renderTyped(shown);
-  nextAt = now + paceScale * (ch === "\n" ? holdAfterNewline(shown) : delayForChar(ch));
+  nextAt = now + (ch === "\n" ? holdAfterNewline(shown) : delayForChar(ch));
   rafId = requestAnimationFrame(cadenceFrame);
 }
 
@@ -369,8 +341,7 @@ function startCadenceTypewriter() {
   if (cursor) cursor.classList.remove("done");
   renderTyped(0);
   typingActive = true;
-  refreshPaceScale((document.getElementById("bg-video") || {}).duration);
-  nextAt = performance.now() + START_HOLD_MS * paceScale;
+  nextAt = performance.now() + START_HOLD_MS;
   rafId = requestAnimationFrame(cadenceFrame);
 }
 
@@ -430,9 +401,6 @@ window.__bnwSliceForCount = sliceForCount;
 window.__bnwVisibleSlice = visibleSlice;
 window.__bnwDelayForChar = delayForChar;
 window.__bnwStartCadence = startCadenceTypewriter;
-window.__bnwEstimateCadenceMs = estimateCadenceMs;
-window.__bnwRefreshPaceScale = refreshPaceScale;
-window.__bnwPaceScale = () => paceScale;
 window.finishManifesto = function () {
   stopCadence();
   lastTyped = -1;
