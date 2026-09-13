@@ -2,7 +2,7 @@
 
 | File | Role |
 | --- | --- |
-| `city-*.jpg` | Fallback stills when the video is absent or reduced-motion is on |
-| `bg-clip.mp4` | Optional local looping background (muted). **Not in git.** |
+| `bg-clip.mp4` | Optional muted looping backdrop (trimmed promotional excerpt; see `/NOTICE.md`) |
+| `city-*.jpg` | Fallback stills when the video is absent, fails to load, or reduced-motion is on |
 
-Add your own `bg-clip.mp4` beside these stills. Keep copyrighted trailers and studio credit plates off this repository.
+`bg-clip.mp4` may be omitted from a checkout; the landing page still works with stills.

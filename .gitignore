@@ -28,8 +28,8 @@ dist/
 build/
 coverage/
 
-# Local cinematic clip — supply your own; do not commit studio footage
-public/media/bg-clip.mp4
+# Optional cinematic clip sources (keep working copies local)
+# public/media/bg-clip.mp4 is tracked for public fair-use commentary deploy — see NOTICE.md
 public/media/bg-clip.cropped.mp4
 public/media/bg-clip.source.mp4
 public/media/*.source.mp4
