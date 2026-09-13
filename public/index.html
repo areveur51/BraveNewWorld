@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brave New World — A•Rêveur</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <video id="bg-video" class="bg-video" src="/media/bg-clip.mp4" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
+  <div class="world" id="world" aria-hidden="true">
+    <div class="scene is-active" data-scene="0">
+      <div class="layer layer-sky" style="--img:url('/media/city-wheat.jpg')"></div>
+      <div class="layer layer-mid" style="--img:url('/media/city-wheat.jpg')"></div>
+      <div class="layer layer-near" style="--img:url('/media/city-deck.jpg')"></div>
+    </div>
+    <div class="scene" data-scene="1">
+      <div class="layer layer-sky" style="--img:url('/media/city-portal.jpg')"></div>
+      <div class="layer layer-mid" style="--img:url('/media/city-portal.jpg')"></div>
+      <div class="layer layer-near" style="--img:url('/media/city-extra-27aa207a.jpg')"></div>
+    </div>
+    <div class="scene" data-scene="2">
+      <div class="layer layer-sky" style="--img:url('/media/city-extra-27aa207a.jpg')"></div>
+      <div class="layer layer-mid" style="--img:url('/media/city-deck.jpg')"></div>
+      <div class="layer layer-near" style="--img:url('/media/city-aerial.jpg')"></div>
+    </div>
+    <div class="scene-scrim"></div>
+  </div>
+
+  <div class="stage" aria-live="polite">
+    <main class="crt-wrap">
+      <div class="crt-bezel">
+        <div class="crt-glass">
+          <span class="crt-corner tl" aria-hidden="true"></span>
+          <span class="crt-corner tr" aria-hidden="true"></span>
+          <span class="crt-corner bl" aria-hidden="true"></span>
+          <span class="crt-corner br" aria-hidden="true"></span>
+          <div class="crt-line"><span id="terminal" class="terminal"></span><span class="cursor" id="cursor" aria-hidden="true">█</span></div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
