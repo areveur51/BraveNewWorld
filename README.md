@@ -24,9 +24,9 @@ The helper honors `PORT` or `BRAVENEWWORLD_PORT` (default `5230`) and `BRAVENEWW
 
 ## Background clip
 
-Optional. Place a muted looping video at `public/media/bg-clip.mp4`. If the file is missing, reduced-motion is on, or the video fails to play, the page uses the still scenes in `public/media/`.
+`public/media/bg-clip.mp4` is included on `main` (Git LFS) under an **Admiral RISK-ACCEPT** exception as a short trim used with the CRT manifesto typewriter as **commentary overlay**. See [`NOTICE.md`](NOTICE.md) for the fair-use/commentary framing (informational only; not legal advice). No Disney ownership or endorsement is claimed.
 
-Do **not** commit studio footage, trailers, or files with network marks. That clip is gitignored on purpose.
+If the file is missing in a checkout, reduced-motion is on, or the video fails to play, the page falls back to the still scenes in `public/media/`.
 
 ## Layout
 
@@ -43,7 +43,7 @@ bravenewworldctl.sh
 
 This repo includes a [Render Blueprint](https://render.com/docs/infrastructure-as-code) at [`render.yaml`](render.yaml). It publishes the `public/` directory and auto-deploys on every push to `main`.
 
-The optional local `bg-clip.mp4` is gitignored, so production uses the still scenes unless you add a clip on the host.
+Production serves `public/media/bg-clip.mp4` from the repo (LFS) when present; otherwise stills. Details: [`NOTICE.md`](NOTICE.md).
 
 ### 1. Create the static site
 
