@@ -16,6 +16,8 @@ const MANIFESTO = [
   "Nothing!",
   "",
   "THE BEST IS YET TO COME!",
+  "",
+  "THIS GAME IS DEDICATED TO ALL THE DREAMING CHILDREN.",
 ].join("\n");
 window.MANIFESTO = MANIFESTO;
 const LINES = MANIFESTO.split("\n");
